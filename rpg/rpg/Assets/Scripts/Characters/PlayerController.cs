@@ -7,9 +7,11 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
     private NavMeshAgent agent;
+    private Animator anim;
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
     }
     public void MoveToTarget(Vector3 target)
     {
@@ -22,11 +24,15 @@ public class PlayerController : MonoBehaviour
         MouseManager.instance.OnMouseClicked += MoveToTarget;
     }
 
-   
+
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        this.SwitchAnimation();
+    }
+    private void SwitchAnimation()
+    {
+        anim.SetFloat("Speed", agent.velocity.sqrMagnitude);
     }
 }
